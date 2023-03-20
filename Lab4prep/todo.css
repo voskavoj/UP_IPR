@@ -58,6 +58,6 @@ li {
     user-select: none;
 }
 
-li.completed {
+.todo-item-checked span {
     text-decoration: line-through;
 }

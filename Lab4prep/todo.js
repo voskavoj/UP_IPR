@@ -1,62 +1,123 @@
-//btnClear points to the #clear-button element in the DOM
+// DOCUMENT
 const btnClear = document.querySelector('#clear-button');
 const btnNew = document.querySelector('#submit-button');
 const inpNewItem = document.querySelector('#new-item');
 const lstTodoList = document.querySelector('#todo-list');
 
-let todoItems = [];
+// GLOBALS
+let todo_items = [];
 
-//Adding and event listener: btnClear will react on the click event
-//When the btnClear is clicked, then the callback function
-//(the 2nd argument of the event listener) will be called. 
+// EVENT LISTENERS
+btnNew.addEventListener("click", add_new_todo_item);
+btnClear.addEventListener("click", remove_all_items);
 
-btnNew.addEventListener("click", function() {
-    const input_text = inpNewItem.value.trim();
-    console.log(input_text);
-    addTodo(input_text);
-});
-btnClear.addEventListener("click", function() {
-    console.log("All items deleted");
-});
+// CLASSES
+class TodoListItem {
+    constructor(active, text)
+    {
+        this.active = active;
+        this.text = text;
 
-// FUNCTIONS
+        this.id = Date.now().toString();
+        this.node = this.create_node();
+    }
 
+    create_node() {
+        let node = document.createElement("li");
+        if (this.active)
+            node.setAttribute('class', `todo-item`);
+        else
+            node.setAttribute('class', `todo-item-checked`);
 
-function renderTodo(todo) {
-    // Select the first element with a class of `js-todo-list`
-    const list = lstTodoList;
+        node.setAttribute('data-key', this.id);
+        node.innerHTML = TodoListItem.get_inner_html(this.id, this.text)
 
-    // Use the ternary operator to check if `todo.checked` is true
-    // if so, assign 'done' to `isChecked`. Otherwise, assign an empty string
-    const isChecked = todo.checked ? 'done': '';
-    // Create an `li` element and assign it to `node`
-    const node = document.createElement("li");
-    // Set the class attribute
-    node.setAttribute('class', `todo-item ${isChecked}`);
-    // Set the data-key attribute to the id of the todo
-    node.setAttribute('data-key', todo.id);
-    // Set the contents of the `li` element created above
-    node.innerHTML = `
-    <input id="${todo.id}" type="checkbox"/>
-    <label for="${todo.id}" class="tick js-tick"></label>
-    <span>${todo.text}</span>
-    <button class="delete-todo js-delete-todo">
-    <svg><use href="#delete-icon"></use></svg>
-    </button>
+        return node;
+    }
+
+    create_buttons_event_listeners()
+    {
+        document.getElementById(this.id.toString() + "-btn-check").addEventListener("click", make_todo_list_item_checked);
+        document.getElementById(this.id.toString() + "-btn-remove").addEventListener("click", make_todo_list_item_removed);
+    }
+
+    make_removed()
+    {
+        this.node.remove();
+        remove_todo_list_item_from_list(this);
+        console.log("Item removed");
+    }
+
+    make_checked()
+    {
+        this.active = false;
+        this.node.setAttribute("class", "todo-item-checked")
+        console.log("Item checked");
+    }
+
+    static get_inner_html(id, text)
+    {
+        return `
+    <span>${text}</span>
+    <button id="${id}-btn-check" class="btn-check-todo"><span title="Check" class="material-icons"> done </span></button>
+    <button id="${id}-btn-remove" class="btn-remove-todo"><span title="Delete" class="material-icons"> close </span></button>
   `;
-
-    // Append the element to the DOM as the last child of
-    // the element referenced by the `list` variable
-    list.append(node);
+    }
 }
 
-function addTodo(text) {
-    const todo = {
-        text,
-        checked: false,
-        id: Date.now(),
-    };
+// FUNCTIONS
+function add_new_todo_item()
+{
+    // get input text
+    const input_text = inpNewItem.value.trim();
+    console.log(input_text); // debug
 
-    todoItems.push(todo);
-    renderTodo(todo);
+    // save new item
+    const new_todo_item = new TodoListItem(true, input_text);
+    todo_items.push(new_todo_item);
+
+    // render new item in html
+    lstTodoList.append(new_todo_item.node);
+    new_todo_item.create_buttons_event_listeners()
+    console.log(todo_items) // debug
+}
+
+function make_todo_list_item_checked()
+{
+    let id = this.id.split("-", 1)[0];
+    console.log(id) // debug
+
+    let todo_item = todo_items.find(item => item.id === id);
+    if (todo_item)
+        todo_item.make_checked();
+    else
+        console.log("Item id " + id + " not found")
+}
+
+function make_todo_list_item_removed()
+{
+    let id = this.id.split("-", 1)[0];
+    console.log(id) // debug
+
+    let todo_item = todo_items.find(item => item.id === id);
+    if (todo_item)
+        todo_item.make_removed();
+    else
+        console.log("Item id " + id + " not found")
+}
+
+function remove_todo_list_item_from_list(item)
+{
+    const index = todo_items.indexOf(item);
+    if (index > -1)
+    {
+        todo_items.splice(index, 1);
+    }
+}
+
+function remove_all_items()
+{
+    while (todo_items.length > 0)
+        todo_items[0].make_removed();
+    console.log("All items deleted"); // debug
 }
