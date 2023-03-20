@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+         rel="stylesheet"
+         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+         crossorigin="anonymous" />
+
+      <title>Layout Task - Bootstrap</title>
+      <style>
+         /* div[class^='col'] {
+            border: 1px solid gray;
+            background-color: lightgrey;
+         }
+
+         div[class^='row'] {
+            border: 1px solid deeppink;
+            background-color: lightpink;
+         } */
+      </style>
+   </head>
+
+   <body>
+      <form action="" class="myForm">
+         <div class="container">
+            <div class="row mb-3">
+               <div class="col">
+                  <h3>Αιτήσεις</h3>
+               </div>
+            </div>
+            <div class="row mb-3">
+               <div class="col">
+                  <h1>Αίτηση έκδοσης πιστοποιητικού</h1>
+               </div>
+            </div>
+            <fieldset class="border p-2 mb-3">
+               <!-- ΟΝΟΜΑ -->
+               <legend class="w-auto">Στοιχεία φοιτητή</legend>
+               <!-- είναι 100% κανονικά -->
+               <!-- aria-describedby -->
+               <div class="row mb-3 align-items-center">
+                  <div class="col-md-2 col-sm-2">
+                     <label for="inputName" class="col-form-label">Όνομα</label>
+                  </div>
+                  <div class="col-md-7 col-sm-10 position-relative">
+                     <input
+                        type="text"
+                        class="form-control"
+                        id="inputName"
+                        placeholder="π.χ. Μήτσος"
+                        aria-describedby="inputNameHelpBlock" />
+                  </div>
+                  <div class="col-md-3 col-sm-10 offset-md-0 offset-sm-2">
+                     <span id="inputNameHelpBlock" class="form-text">Δώστε το όνομά σας.</span>
+                  </div>
+               </div>
+               <!-- ΕΠΙΘΕΤΟ -->
+               <div class="row mb-3 align-items-center">
+                  <div class="col-md-2 col-sm-2">
+                     <label for="inputSurname2" class="col-form-label">Επίθετο</label>
+                  </div>
+                  <div class="col-md-7 col-sm-10">
+                     <input type="text" class="form-control" id="inputSurname2" placeholder="π.χ. Μήτσου" required />
+                  </div>
+                  <div class="col-md-3 col-sm-10 offset-md-0 offset-sm-2">
+                     <span id="inputSurname2HelpBlock" class="form-text">Δώστε το επίθετό σας.</span>
+                  </div>
+               </div>
+               <!-- ΕΤΟΣ ΣΠΟΥΔΩΝ -->
+               <div class="row mb-3 align-items-center">
+                  <div class="col-md-2 col-sm-2">
+                     <label class="form-label">Έτος σπουδών</label>
+                  </div>
+                  <div class="col-md-7 col-sm-10 position-relative">
+                     <div class="form-check-inline">
+                        <input type="radio" class="form-check-input" name="inputYear" id="inputYearA" value="yearA" />
+                        <label class="form-check-label" for="inputYearA"> Α </label>
+                     </div>
+                     <div class="form-check-inline">
+                        <input type="radio" class="form-check-input" name="inputYear" id="inputYearB" value="yearB" />
+                        <label class="form-check-label" for="inputYearB"> B </label>
+                     </div>
+                     <div class="form-check-inline">
+                        <input type="radio" class="form-check-input" name="inputYear" id="inputYearC" value="yearc" />
+                        <label class="form-check-label" for="inputYearA"> C </label>
+                     </div>
+                     <div class="form-check-inline">
+                        <input type="radio" class="form-check-input" name="inputYear" id="inputYearD" value="yearD" />
+                        <label class="form-check-label" for="inputYearA"> D </label>
+                     </div>
+                     <div class="form-check-inline">
+                        <input type="radio" class="form-check-input" name="inputYear" id="inputYearE" value="yearE" />
+                        <label class="form-check-label" for="inputYearA"> E </label>
+                     </div>
+                     <div class="form-check-inline">
+                        <input
+                           type="radio"
+                           class="form-check-input"
+                           name="inputYear"
+                           id="yearMoreThanE"
+                           value="yearMoreThanE" />
+                        <label class="form-check-label" for="inputYearA"> &gt; E </label>
+                     </div>
+                  </div>
+                  <div class="col-md-3 col-sm-10 offset-md-0 offset-sm-2">
+                     <span class="form-text" id="inputSexHelp">Επιλέξτε το έτος σας</span>
+                  </div>
+               </div>
+               <!-- ΑΡΙΘΜΟΣ ΜΗΤΡΩΟΥ -->
+               <div class="row mb-3 align-items-center">
+                  <div class="col-md-2 col-sm-2">
+                     <label for="inputAM" class="col-sm-2 col-form-label">Αριθμός μητρώου</label>
+                  </div>
+                  <div class="col-md-7 col-sm-10 position-relative">
+                     <input
+                        type="number"
+                        class="form-control"
+                        id="inputAM"
+                        placeholder="1050505"
+                        min="1000000"
+                        max="1999999"
+                        aria-describedby="inputAMHelpBlock" />
+                  </div>
+
+                  <div class="col-md-3 col-sm-10 offset-md-0 offset-sm-2">
+                     <span class="form-text" id="inputAMHelp">Δώστε τον αριθμό μητρώου σας.</span>
+                  </div>
+               </div>
+            </fieldset>
+
+            <fieldset class="border p-2 mb-3">
+               <legend class="w-auto">Στοιχεία διεύθυνσης</legend>
+            </fieldset>
+            <fieldset class="border p-2 mb-3">
+               <legend class="w-auto">Στοιχεία επικοινωνίας</legend>
+            </fieldset>
+            <fieldset class="border p-2 mb-3">
+               <legend class="w-auto">Παραλαβή πιστοποιητικού</legend>
+            </fieldset>
+
+            <div class="row mb-3">
+               <div class="col">
+                  <button type="submit" class="btn btn-primary mb-3">Υποβολή</button>
+               </div>
+            </div>
+         </div>
+      </form>
+   </body>
+</html>

@@ -1,0 +1,115 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  background-color: #fff;
+  color: #333;
+  margin: 0;
+  /* ορίζει font-size 1.8em και line-height 1.8 (άρα θα είναι 1.8 x {ό,τι είναι το font-size})*/
+  /* sets font-size to 1.8em and line-height to 1.8 (so it will be 1.8 x {whatever the font-size is})*/
+  font: 1.8em / 1.8 Arial, Helvetica, sans-serif;
+}
+
+.logo {
+  font-size: 200%;
+  padding: 50px 20px;
+  /* δοκιμάστε να βγάλετε το auto... το 0 είναι το margin (εξωτερικό περιθώριο πάνω και κάτω) και το auto το εξ. περιώριο δεξιά και αριστερά.
+  auto= θα έχει το ίδιο margin δεξιά αριστερά, άρα θα φαίνεται στοιχισμένο στο κέντρο */
+  /* try taking out auto... 0 is the margin (outer margin top and bottom) and auto is the outer margin left and right.
+  auto= will have the same margin right to left, so it will appear centered */
+  margin: 0 auto;
+  max-width: 980px;
+}
+
+main {
+  margin: 50px;
+}
+
+/* FORM */
+
+.form-flex {
+  position: sticky;
+  width: 100%;
+  flex-grow: 1;
+  box-sizing: border-box;
+  justify-content: space-between;
+  text-align: left;
+}
+
+input[type=radio] {
+  width: auto;
+  border: none;
+  margin-right: 15px;
+}
+
+
+form {
+  margin: 0 auto;
+  border: none;
+}
+
+input {
+  box-sizing: border-box;
+  border: 1px solid #999;
+  border-radius: 0.3em;
+  padding: 0.3em;
+}
+
+select {
+  box-sizing: border-box;
+  border: 1px solid #999;
+  border-radius: 0.3em;
+  padding: 0.3em;
+  background-color: white;
+}
+
+/* NAVBAR */
+
+nav {
+  position: sticky;
+  top:0px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: black;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 0px 20px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #b2b2b2;
+  color: #916e6e;
+}
+
+.selected a, .selected a:hover{
+  background-color: #b2b2b2;
+  color: red;
+}
+
+/* GRID */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  row-gap: 5px;
+  justify-content: left;
+  align-content: center;
+}
+
+.form-double-colspan{
+  grid-column: 1 / 3;
+}

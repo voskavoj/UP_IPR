@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+  <meta charset="utf-8">
+  <title>Layout Task</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="logo">
+    Τμήμα Ηλεκτρολόγων Μηχανικών &amp; Τεχνολογίας Υπολογιστών
+  </div>
+
+  <nav>
+    <ul>
+      <li>
+        <a href="">Πληροφορίες</a>
+      </li>
+      <li class="selected">
+        <a href="">Αιτήσεις</a>
+      </li>
+      <li>
+        <a href="">Προπτυχιακές σπουδές</a>
+      </li>
+      <li>
+        <a href="">Μεταπτυχιακές σπουδές</a>
+      </li>
+    </ul>
+  </nav>
+
+  <main>
+    <article>
+      <h3>Αιτήσεις</h3> <!-- Applications -->
+      <h1>Αίτηση έκδοσης πιστοποιητικού</h1> <!-- Application for certificate -->
+
+      <form action="#">
+        <fieldset class="form-grid">
+          <legend class="form-double-colspan">Στοιχεία φοιτητή</legend> <!-- Student data -->
+          <i class="form-double-colspan">Συμπληρώστε τα στοιχεία σας με
+            ελληνικούς χαρακτήρες</i> <!-- Fill the form with greek characters -->
+          <label for="firstName">Όνομα</label>
+          <input type="text"
+                 name="name"
+                 id="firstName"
+                 placeholder="Όνομα"
+                 required>
+          <label for="lastName">Επώνυμο</label>
+
+          <input type="text"
+                 name="lastName"
+                 id="lastName"
+                 placeholder="Επώνυμο">
+
+          <label for="yearA"> Έτος σπουδών</label> <!-- year of study -->
+          <div class="form-flex">
+            <label for="yearA">A</label>
+            <input type="radio"
+                   name="year"
+                   value="Α"
+                   id="yearA">
+            <label for="yearB">B</label>
+            <input type="radio"
+                   name="year"
+                   value="Β"
+                   id="yearB">
+            <label for="yearC">Γ</label>
+            <input type="radio"
+                   name="year"
+                   value="Γ"
+                   id="yearC">
+            <label for="yearD">Δ</label>
+            <input type="radio"
+                   name="year"
+                   value="Δ"
+                   id="yearD">
+            <label for="yearE">Ε</label>
+            <input type="radio"
+                   name="year"
+                   value="Ε"
+                   id="yearE">
+            <label for="yearOther">&gt;Ε</label>
+            <input type="radio"
+                   name="year"
+                   value="yearOther"
+                   id="yearOther">
+          </div>
+          <label for="am">Αριθμός μητρώου</label> <!-- Matriculation number -->
+          <input type="number"
+                 name="am"
+                 id="am"
+                 min="1000000"
+                 max="1999999"
+                 placeholder="1050505">
+
+        </fieldset>
+        <fieldset class="form-grid">
+          <legend class="form-double-colspan">Στοιχεία διεύθυνσης</legend> <!-- address -->
+          <label for="street">Οδός και αριθμός</label>
+          <input type="text"
+                 name="street"
+                 id="street"
+                 placeholder="Οδός και αριθμός">
+          <label for="city">Πόλη</label>
+          <input type="text"
+                 name="city"
+                 placeholder="Πόλη">
+          <label for="postcode">Ταχυδρομικός κωδικός</label>
+          <input type="text"
+                 name="postcode"
+                 placeholder="Ταχυδρομικός κωδικός"
+                 pattern="[0-9]{5}">
+        </fieldset>
+        <fieldset class="form-grid">
+          <legend class="form-double-colspan">Στοιχεία επικοινωνίας</legend> <!-- contact data -->
+          <label for="phone">Τηλέφωνο</label>
+          <input type="tel"
+                 name="phone"
+                 id="phone"
+                 placeholder="Τηλέφωνο">
+          <label for="email">Διεύθυνση μέιλ</label>
+          <input type="email"
+                 name="email"
+                 id="email"
+                 placeholder="Διεύθυνση μέιλ">
+
+        </fieldset>
+        <fieldset class="form-grid">
+          <legend>Επιλέξτε πιστοποιητικό και τρόπο παραλαβής</legend>
+          <label> <!-- Select certificate and method of receipt -->
+            Είδος πιστοποιητικού </label>
+          <select name="document">
+            <option value="">Φωτοτυπία καρτέλας</option>
+            <option value="">Βεβαίωση φοίτησης</option>
+          </select>
+        </fieldset>
+        <fieldset class="form-grid">
+          <legend>Παραλαβή πιστοποιητικού</legend>
+          <label for="deliveryOffice">Παραλαβή από τη γραμματεία
+            <input type="radio"
+                   name="delivery"
+                   id="deliveryOffice"
+                   value="office"></label>
+          <label for="deliveryPost">Αποστολή στη διεύθυνση οικίας
+            <input type="radio"
+                   name="delivery"
+                   id="deliveryPost"
+                   value="post"></label>
+          <label>
+            Ημερομηνία παραλαβής
+          </label>
+          <input type="date"
+                 name="date"
+                 min="2023-03-13"
+                 max="2023-03-20"
+                 id="date">
+        </fieldset>
+
+        <button type="submit">Υποβολή</button>
+      </form>
+    </article>
+
+  </main>
+</body>
+
+</html>
