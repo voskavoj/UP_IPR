@@ -15,7 +15,7 @@ btnClear.addEventListener("click", remove_all_items);
 class TodoListItem {
     constructor(active, text)
     {
-        this.active = active;
+        this.unchecked = active;
         this.text = text;
 
         this.id = Date.now().toString();
@@ -24,12 +24,12 @@ class TodoListItem {
 
     create_node() {
         let node = document.createElement("li");
-        if (this.active)
+        if (this.unchecked)
             node.setAttribute('class', `todo-item`);
         else
             node.setAttribute('class', `todo-item-checked`);
 
-        node.setAttribute('data-key', this.id);
+        // node.setAttribute('data-key', this.id);
         node.innerHTML = TodoListItem.get_inner_html(this.id, this.text)
 
         return node;
@@ -37,8 +37,8 @@ class TodoListItem {
 
     create_buttons_event_listeners()
     {
-        document.getElementById(this.id.toString() + "-btn-check").addEventListener("click", make_todo_list_item_checked);
-        document.getElementById(this.id.toString() + "-btn-remove").addEventListener("click", make_todo_list_item_removed);
+        document.getElementById(this.id + "-btn-check").addEventListener("click", make_todo_list_item_checked);
+        document.getElementById(this.id + "-btn-remove").addEventListener("click", make_todo_list_item_removed);
     }
 
     make_removed()
@@ -50,9 +50,18 @@ class TodoListItem {
 
     make_checked()
     {
-        this.active = false;
-        this.node.setAttribute("class", "todo-item-checked")
-        console.log("Item checked");
+        if (this.unchecked)
+        {
+            this.unchecked = false;
+            this.node.setAttribute("class", "todo-item-checked")
+            console.log("Item checked");
+        }
+        else
+        {
+            this.unchecked = true;
+            this.node.setAttribute("class", "todo-item")
+            console.log("Item unchecked");
+        }
     }
 
     static get_inner_html(id, text)
