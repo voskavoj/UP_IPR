@@ -2,28 +2,23 @@
 <html>
    <head>
       <meta charset="utf-8" />
-      <title>Οι εργασίες μου</title>
+      <title>My assignments</title>
       <link href="style.css" rel="stylesheet">
    </head>
 
    <body>
       <div class="tasks">
-         <div class="title">μην ξεχάσω...</div>
+         <div class="title">Don't forget...</div>
 
-         <input type="text" name="item" id="item" value="" placeholder="π.χ. να κάνω γυμναστική" />
+         <input type="text" name="item" id="item" value="" placeholder="e.g. refactor code" />
 
          <ul class="task-list">
-            <li>
-               <span>Να λύσω ξανά την άσκηση αυτή την επόμενη εβδομάδα, που θα ξέρω πώς χειριζόμαστε τα συμβάντα</span>
-               <button>Αφαίρεση</button>
-            </li>
-            <li class="done"><span>Να πάρω τα χάπια μου</span><button>Αφαίρεση</button></li>
-            <li><span>Να διαβάσω JS</span><button>Αφαίρεση</button></li>
-            <li class="done"><span>Να ταΐσω τη γάτα</span><button>Αφαίρεση</button></li>
-            <li><span>Να μαγειρέψω</span><button>Αφαίρεση</button></li>
+            <!--JS-ADDED TASKS-->
          </ul>
-         <div class="statistics">Σύνολο: <span class="total">0</span></div>
-         <div class="statistics">Δεν έχουν ολοκληρωθεί: <span class="left-todo">0</span></div>
+
+         <div class="statistics">Total: <span class="total">0</span></div>
+         <div class="statistics">Left to do: <span class="left-todo">0</span></div>
+
       </div>
    <script src="todo.js"></script>
    </body>

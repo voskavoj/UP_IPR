@@ -75,3 +75,10 @@ button {
     font-size: 0.9rem;
     text-align: right;
 }
+
+.todo-item-time-info {
+    font-size: x-small;
+    line-height: 0;
+    margin-right: 10px;
+    text-align: left;
+}
