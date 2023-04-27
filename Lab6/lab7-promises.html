@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Memory game</title>
+        <style>
+            .game-panel {
+                display: grid;
+                padding: 2em;
+            }
+
+            .images-panel,
+            .covers-panel {
+                display: grid;
+                grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr 1fr;
+                gap: 2em;
+                /* both panels occupy the same cell of the game-panel grid -> they overlap */
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            .covers-panel>div {
+                background-color: rgba(100, 100, 100, 1);
+                transition: opacity 0.3s linear;
+            }
+
+            .game-end-panel {
+                display: flex;
+                background-color: rgba(255, 255, 255, 0.9);
+                grid-column: 1/5;
+                grid-row: 1/4;
+                font-family: sans-serif;
+                font-size: xx-large;
+                align-items: center;
+                justify-content: center;
+                z-index: -1;
+                opacity: 0;
+                gap: 2em;
+                transition: opacity 0.3s linear;
+            }
+
+            img {
+                object-fit: fill;
+                width: 100%;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="game-panel">
+            <!-- το game-panel περιέχει 3 επάλληλα (overlapping) στοιχεία -->
+            <!-- game-panel contains 3 overlapping elements -->
+            <div class="images-panel">
+                <!-- το images-panel είναι ένα grid με τις 12 εικόνες -->
+                <!-- images-panel is a grid containing the 12 images -->
+            </div>
+            <div class="covers-panel">
+                <!-- άλλο ένα grid με τα 12 "καλλύματα" (covers) των εικόνων (που χρησιμοποιύνται για να καλύψουν τις εικόνες) -->
+                <!-- another grid containing the 12 covers that initialy cover the images -->
+            </div>
+            <div class="game-end-panel">
+                <!-- εμφανίζεται μόνο στο τέλος, και δείχνει τον αριθμό των προσπαθειών (totalTries) -->
+                <!-- this appears only at the end, and shows the amount of tries the player needed to finish the game (totalTries) -->
+            </div>
+        </div>
+    </body>
+    <script>
+        //We play with 6 image pairs
+        const numberImg = 6
+        //Total tries so far
+        let totalTries = 0
+        //How many pairs have been revealed so far
+        let revealedPairs = 0
+
+        //A total of 12 cards, we shuffle them
+        let cards = shuffleArr([0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5]);
+
+
+        function loadImages() {
+            const promises = new Array()
+
+            // ADD CODE HERE
+
+            // load each image by using the promise API.
+            // Since loading a resource, especially over the internet, might be slow, you have to ensure that
+            // all images have been loaded before continuing.
+            // The trick here is to user the 'load' event for each image. If 'load' event is fired, it means the
+            // image has been loaded (i.e. the promise of loading an image has been resolved)
+
+            // Some further details that might be helpful, not related to promises:
+            // You might find helpful https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image,
+            // which is equivalent to document.createElement('img')
+
+
+            // Use the 6 images that are provided with this example. After making sure that the game works you can
+            // get random images from the lorem picsum service (instruction will appear on virtualclass).
+
+
+            //return the array that contains the promises
+            return promises
+        }
+
+
+        Promise.all(
+            loadImages()).then(
+                // ADD CODE HERE
+
+                // Once the images have been loaded, then set up the game    
+
+                // Each image appears twice in the game. That means that two elements are needed per image.
+                // A helpful function is element.cloneNode() that creates a clone of an element
+
+                // After creating each image element and attaching it to the images-panel
+                // you need to create the cover, that covers the image:
+                // let cover = document.createElement('div')
+                // cover.setAttribute("data-image-id", imageId)
+                // cover.addEventListener('click', clickListener);
+                // document.querySelector('.covers-panel').appendChild(cover)
+                // This way, element.dataset.imageId contains the imageId of the image
+                // that lies below the cover (short explanation: the attribute was named 'data-image-id'. 
+                // The first part, 'data-', is ommitted. The rest is converted from image-id to imageId.)
+                // Long explanation in https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes
+
+            )
+
+        //will be called when the user clicks on a cover
+        function clickListener(event) {
+            playCard(event.target)
+        }
+
+        //If no card has been uncovered this is undefined
+        //otherwise it contains the cover that has been previously clicked
+        let previouslySelectedCover
+
+        // contains the core game logic
+        //selectedCover is the cover that has just been clicked
+        function playCard(selectedCover) {
+            if (previouslySelectedCover == undefined) {
+                previouslySelectedCover = selectedCover
+                selectedCover.style.opacity = 0;
+                totalTries++;
+            }
+            // else if the image under selectedCover is the same as under previouslySelectedCover
+            // ADD CODE HERE
+            // else it means that a second image has been uncovered that matches the previous one
+            // ADD CODE HERE
+
+
+            if (revealedPairs == numberImg) {
+                let gameEndPanel = document.querySelector('.game-end-panel')
+                gameEndPanel.innerHTML = "<p>Χρειάστηκαν συνολικά " + totalTries + " προσπάθειες</p>"
+                // gameEndPanel.innerHTML = "<p>It took you " + totalTries + " to finish the game</p>"
+                gameEndPanel.style.zIndex = 3
+                gameEndPanel.style.opacity = 1
+
+            }
+        }
+
+        // Shuffle Array In place
+        // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+        function shuffleArr(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                let rand = Math.floor(Math.random() * (i + 1));
+                [array[i], array[rand]] = [array[rand], array[i]]
+            }
+            return array;
+        }
+
+    </script>
+
+</html>
