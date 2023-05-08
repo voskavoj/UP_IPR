@@ -1,0 +1,37 @@
+        <form method="GET">
+            <div class="row">
+                <div class="col mt-3">
+                    <h3><a href="/">Οι εργασίες μου</a></h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="item">Προσθήκη εργασίας:</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-9">
+                    <input type="text" name="taskName" id="item"  class="input-lg">
+                </div>
+                <div class="col">
+                    <button type="submit">Νέα εργασία</button>
+                </div>
+            </div>
+
+            <div class="row ">
+                <div class="col mt-3">
+                    <ul class="list-group">
+                        {{#each tasks}}
+                        <li class="list-group-item">
+                            {{!-- στο href δηλώνουμε σε ποιο path θα στοχεύει το κλικ που θα προκαλεί το toggle --}}
+                            {{!-- επίσης, κάθε τασκ έχει την πληροφορία για το status του. αν είναι "1" τότε --}}
+                            {{!-- ας είναι π.χ., style="text-decoration: line-through;" --}}
+                            <a href="">{{task}} </a> - {{created_at}}
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </form>

@@ -1,0 +1,9 @@
+span[data-task-id] {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.task-status-inactive {
+    text-decoration: line-through;
+}
+
