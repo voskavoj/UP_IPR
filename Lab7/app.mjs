@@ -22,11 +22,11 @@ app.set('view engine', 'hbs');
 // Model - το μοντέλο δεδομένων μας είναι αποθηκευμένο στη RAM. 
 // Model - our data model is stored in RAM.
 let tasks = [
-    { "id": 1, "task": "Να βρω σφάλματα", "status": 0, "created_at": "2023-05-07 09:08:10" },
-    { "id": 2, "task": "Να ξαναδώ τον κώδικα", "status": 0, "created_at": "2023-05-10 23:50:40" },
-    { "id": 3, "task": "Να διορθώσω τα σφάλματα", "status": 1, "created_at": "2023-05-10 23:50:40" },
-    { "id": 4, "task": "Να αναμορφώσω τον κώδικα", "status": 1, "created_at": "2023-05-10 23:50:40" },
-    { "id": 5, "task": "Να πάω για μπύρες", "status": 1, "created_at": "2023-05-10 23:50:50" }
+    { "id": 1, "task": "Stuff", "status": 0, "created_at": "2023-05-07 09:08:10" },
+    { "id": 2, "task": "More stuff", "status": 0, "created_at": "2023-05-10 23:50:40" },
+    { "id": 3, "task": "Still more stuff", "status": 1, "created_at": "2023-05-10 23:50:40" },
+    { "id": 4, "task": "Stuff, except crossed", "status": 1, "created_at": "2023-05-10 23:50:40" },
+    { "id": 5, "task": "Ohh, different stuff!", "status": 1, "created_at": "2023-05-10 23:50:50" }
 ]
 
 let getAllTasks = function (callback) {
@@ -84,6 +84,70 @@ let listAllTasksRender = function (req, res) {
     });
 }
 
+let toggleTask = function (req, res)
+{
+    let task_id = req.query["taskid"];
+    let [index, task] = search_task_by_id(task_id);
+
+    if (task)
+    {
+        task.status = 1 - task.status;
+        tasks[index] = task;
+    }
+
+    return res.redirect('/');
+}
+
+let addTask = function (req, res)
+{
+    let task_text = req.query["taskName"];
+    if (task_text)
+    {
+        tasks.push({ "id": get_available_id(), "task": task_text, "status": 0, "created_at": get_task_timestamp()});
+    }
+
+    return res.redirect('/');
+}
+
+let deleteTask = function (req, res)
+{
+    let task_id = req.query["taskid"];
+    let [index, task] = search_task_by_id(task_id);
+
+    if (task)
+    {
+        tasks.splice(index, 1);
+    }
+
+    return res.redirect('/');
+}
+
+function search_task_by_id(id)
+{
+    let i = 0;
+    for (const t of tasks)
+    {
+        if (t.id == id)
+            return [i, t];
+        i++;
+    }
+    return [null, null];
+}
+
+function get_available_id()
+{
+    let task_ids = [0];
+    for (const t of tasks)
+        task_ids.push(t.id);
+    return Math.max(...task_ids) + 1;
+}
+
+function get_task_timestamp()
+{
+    let date = new Date();
+    return date.toLocaleString("gr-GR");
+}
+
 // Χρησιμοποίησε το αντικείμενο δρομολόγησης `router` 
 // load the router 'routeρ'
 app.use(router); 
@@ -92,6 +156,9 @@ app.use(router);
 // Define two routes
 router.route('/api/tasks').get(listAllTasks);
 router.route('/').get(listAllTasksRender);
+router.route('/toggle').get(toggleTask);
+router.route('/delete').get(deleteTask);
+router.route('/add').get(addTask);
 
 
 // Επίσης έτσι: 

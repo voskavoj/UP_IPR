@@ -1,13 +1,13 @@
-        <form method="GET">
+        <form method="GET" action="/add">
             <div class="row">
                 <div class="col mt-3">
-                    <h3><a href="/">Οι εργασίες μου</a></h3>
+                    <h3><a href="/">My tasks</a></h3>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
-                    <label for="item">Προσθήκη εργασίας:</label>
+                    <label for="item">New task:</label>
                 </div>
             </div>
 
@@ -16,7 +16,7 @@
                     <input type="text" name="taskName" id="item"  class="input-lg">
                 </div>
                 <div class="col">
-                    <button type="submit">Νέα εργασία</button>
+                    <button type="submit">Add task</button>
                 </div>
             </div>
 
@@ -28,7 +28,8 @@
                             {{!-- στο href δηλώνουμε σε ποιο path θα στοχεύει το κλικ που θα προκαλεί το toggle --}}
                             {{!-- επίσης, κάθε τασκ έχει την πληροφορία για το status του. αν είναι "1" τότε --}}
                             {{!-- ας είναι π.χ., style="text-decoration: line-through;" --}}
-                            <a href="">{{task}} </a> - {{created_at}}
+                            <a href="/toggle?taskid={{id}}" {{#if status}} class="task-status-inactive" {{/if}}> {{task}} </a> - {{created_at}}
+                            <a href="/delete?taskid={{id}}" class="delete-link"> Delete </a>
                         </li>
                         {{/each}}
                     </ul>
