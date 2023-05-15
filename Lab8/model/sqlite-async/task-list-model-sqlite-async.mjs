@@ -35,15 +35,41 @@ export let getTask = async (taskId, userId) => {
 
 //Προσθήκη μιας νέας εργασίας
 export let addTask = async (newTask, userId) => {
-    //TODO
+    const stmt = await sql.prepare('INSERT INTO task VALUES (null, ?, ?, CURRENT_TIMESTAMP, ?)');
+
+    try {
+        const info = await stmt.run(newTask.task, newTask.status, userId);
+        return true;
+    }
+    catch (err) {
+        throw err;
+    }
 }
 
 //Αλλαγή της κατάστασης μιας εργασίας
 export let toggleTask = async (taskId, userId) => {
-    //TODO
+    // get current status
+    const stmt_read = await sql.prepare('SELECT status FROM task WHERE id=? AND user_id=? LIMIT 0, 1');
+    const stmt_toggle = await sql.prepare('UPDATE task SET status=? WHERE id=? AND user_id=?');
+
+    try {
+        const info_read = await stmt_read.all(taskId, userId);
+        let task_status = info_read[0].status;
+        task_status = 1 - task_status;
+        const info_toggle = await stmt_toggle.run(task_status, taskId, userId);
+        return true;
+    } catch (err) {
+        res.send(err);
+    }
 }
 
 //Αφαίρεση μιας εργασίας
 export let removeTask = async (taskId, userId) => {
-    //TODO
+    const stmt = await sql.prepare('DELETE FROM task WHERE id=? AND user_id=?');
+    try {
+        const task = await stmt.run(taskId, userId);
+        return true;
+    } catch (err) {
+        res.send(err);
+    }
 }

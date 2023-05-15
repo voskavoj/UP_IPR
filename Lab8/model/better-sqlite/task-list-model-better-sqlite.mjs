@@ -37,10 +37,32 @@ export let addTask = (newTask, userId) => {
 
 //Αλλαγή της κατάστασης μιας εργασίας
 export let toggleTask = (taskId, userId) => {
-    //TODO
+    const stmt_read = sql.prepare('SELECT status FROM task WHERE id=? AND user_id=?');
+    const stmt_toggle = sql.prepare('UPDATE task SET status=? WHERE id=? AND user_id=?');
+    let info_read, info_toggle;
+
+    try {
+        info_read = stmt_read.all(taskId, userId);
+        let task_status = info_read[0].status;
+        task_status = 1 - task_status;
+        info_toggle = stmt_toggle.run(task_status, taskId, userId);
+        return true;
+    }
+    catch (err) {
+        throw err;
+    }
 }
 
 //Αφαίρεση μιας εργασίας
 export let removeTask = (taskId, userId) => {
-    //TODO
+    const stmt = sql.prepare('DELETE FROM task WHERE id=? AND user_id=?');
+    let info;
+
+    try {
+        info = stmt.run(taskId, userId);
+        return true;
+    }
+    catch (err) {
+        throw err;
+    }
 }
